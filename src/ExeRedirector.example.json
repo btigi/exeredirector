@@ -1,0 +1,13 @@
+[
+    {
+        "path": "D:\\",
+        "filetype": "dat",
+        "app": "C:\\windows\\notepad.exe"
+    },
+    {
+        "path": "C:\\game2",
+        "filetype": ".shp",
+        "app": "C:\\apps\\game2-handler.exe",
+        "arguments": [ "/open" ]
+    }
+]
