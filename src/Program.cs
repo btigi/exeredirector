@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using ExeRedirector.Model;
 
@@ -36,7 +37,7 @@ public static class Program
         var mapping = FindBestMapping(mappings, inputFilePath);
         if (mapping is null)
         {
-            return ExitCodes.NoMatchingMapping;
+            return ShowOpenWithDialog(inputFilePath);
         }
 
         return StartMappedApp(mapping, inputFilePath);
@@ -179,6 +180,36 @@ public static class Program
         {
             return ExitCodes.StartFailed;
         }
+    }
+
+    private static int ShowOpenWithDialog(string inputFilePath)
+    {
+        var openAsInfo = new OpenAsInfo
+        {
+            File = inputFilePath,
+            Flags = OpenAsInfoFlags.Execute
+        };
+
+        return SHOpenWithDialog(IntPtr.Zero, ref openAsInfo) == 0
+            ? ExitCodes.Success
+            : ExitCodes.StartFailed;
+    }
+
+    [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+    private static extern int SHOpenWithDialog(IntPtr hwndParent, ref OpenAsInfo openAsInfo);
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    private struct OpenAsInfo
+    {
+        public string File;
+        public string? Class;
+        public OpenAsInfoFlags Flags;
+    }
+
+    [Flags]
+    private enum OpenAsInfoFlags
+    {
+        Execute = 0x00000004
     }
 
     private static readonly JsonSerializerOptions JsonOptions = new()

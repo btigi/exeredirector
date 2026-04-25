@@ -6,5 +6,6 @@
     <Nullable>enable</Nullable>
     <AssemblyName>ExeRedirector</AssemblyName>
     <RootNamespace>ExeRedirector</RootNamespace>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 </Project>

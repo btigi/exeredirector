@@ -35,6 +35,8 @@ The longest matching `path` wins, so a mapping for `C:\games\game1\mods` is chos
 
 `filetype` is required for each mapping. It can be written as `SHP`, `.shp`, or `*.shp`.
 
+If no configured mapping matches the file path and extension, ExeRedirector opens the normal Windows "Open with" dialog so you can pick an application manually.
+
 ## Compiling
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [.NET](https://dotnet.microsoft.com/) installed on your computer. From your command line:
